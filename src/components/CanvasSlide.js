@@ -31,7 +31,6 @@ const CanvasSlide = function () {
 
   // function to download json file
   const downloadJson = function () {
-    console.log(finalData);
     const obj = {};
     for (let key in finalData) {
       const boxes = finalData[key];
@@ -89,6 +88,7 @@ const CanvasSlide = function () {
         </PrimaryBtn>
       </div>
       {/* anchor tag used just for downloading purpose will be hidden on screen */}
+      {/* eslint-disable-next-line */}
       <a download={true} ref={anchor} className="sr-only"></a>
     </div>
   );

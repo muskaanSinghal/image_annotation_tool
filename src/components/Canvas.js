@@ -7,7 +7,7 @@ import React from "react";
 import { PrimaryBtn } from "./util";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate, faSave, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { fireAlert, swalDelete } from "../utilFunctions";
+import { swalDelete } from "../utilFunctions";
 import Swal from "sweetalert2";
 // Function for getting mouse co-ordinates
 const getMouseCoords = function (e) {
@@ -110,7 +110,6 @@ const Canvas = function ({
   };
 
   const handleSave = function () {
-    console.log(list);
     onSave(imageId, list);
   };
 
@@ -120,12 +119,12 @@ const Canvas = function ({
 
   useEffect(() => {
     setList(savedList);
-  }, [imageId, savedList?.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageId, JSON.stringify(savedList)]);
 
   const openInstructions = function () {
     Swal.fire({
       title: "Instructions",
-      // text: <h2>HELLO WORLD</h2>,
       html: `
         <ul className="list-disc">
           <li>Click and drag to create bounding boxes.</li>
