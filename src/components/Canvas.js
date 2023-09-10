@@ -145,7 +145,7 @@ const Canvas = function ({
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-        className="bg-teal-700"
+        className="bg-offwhite"
       >
         {/* Overlay Image */}
         <Layer width={700}>

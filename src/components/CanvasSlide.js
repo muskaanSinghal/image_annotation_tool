@@ -2,7 +2,12 @@ import { useRef, useState } from "react";
 import { images } from "../exports";
 import Canvas from "./Canvas";
 import { IconButton, PrimaryBtn } from "./util";
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleLeft,
+  faAngleRight,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const CanvasSlide = function () {
   const { image1, image2, image3, image4, image5 } = images;
   const imgArr = [image1, image2, image3, image4, image5];
@@ -41,7 +46,7 @@ const CanvasSlide = function () {
     anchor.current.click();
   };
   return (
-    <div className="bg-offwhite  relative rounded-[10px] shadow-2xl">
+    <div className="bg-offwhite  relative rounded-[10px] shadow-2xl  my-[60px]">
       <Canvas
         source={imgArr[current]}
         imageId={`image_${current}`}
@@ -64,6 +69,12 @@ const CanvasSlide = function () {
       {/* Slide count */}
       <p className="text-center text-sm font-semibold text-primary">
         {current + 1} / {imgArr.length}
+      </p>
+      <p className="font-bold text-sm flex justify-center items-baseline text-blue-400 gap-x-2 my-4">
+        <FontAwesomeIcon icon={faInfoCircle} />
+        <span>
+          Please save your changes before moving forward to next slide.
+        </span>
       </p>
 
       <div className="fixed inset-x-0 py-2 bottom-0 flex justify-center items-center bg-primary shadow-inner">
