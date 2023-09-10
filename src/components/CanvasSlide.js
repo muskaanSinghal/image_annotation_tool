@@ -8,6 +8,7 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fireAlert } from "../utilFunctions";
 const CanvasSlide = function () {
   const { image1, image2, image3, image4, image5 } = images;
   const imgArr = [image1, image2, image3, image4, image5];
@@ -25,19 +26,21 @@ const CanvasSlide = function () {
 
   const handleSave = function (imageId, list) {
     setFinalData((prev) => ({ ...prev, [imageId]: list }));
-    alert("List saved successfully");
+    fireAlert("List saved successfully!", "success");
   };
 
   // function to download json file
   const downloadJson = function () {
+    console.log(finalData);
     const obj = {};
     for (let key in finalData) {
       const boxes = finalData[key];
-      boxes.forEach((box) => {
+      const list = boxes.map((box) => {
         const { x, y, h, w } = box;
         const f = { x1: x, y1: y, x2: x + w, y2: y + h };
-        obj[key] = f;
+        return f;
       });
+      obj[key] = list;
     }
     const json = JSON.stringify(obj);
     const blob = new Blob([json], { type: "application/json" });

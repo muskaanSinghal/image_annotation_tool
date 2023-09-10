@@ -7,6 +7,8 @@ import React from "react";
 import { PrimaryBtn } from "./util";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate, faSave, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { fireAlert, swalDelete } from "../utilFunctions";
+import Swal from "sweetalert2";
 // Function for getting mouse co-ordinates
 const getMouseCoords = function (e) {
   const stage = e.target.getStage();
@@ -100,7 +102,15 @@ const Canvas = function ({
     }
   };
 
+  const deletePrompt = function () {
+    swalDelete(
+      "Are you sure you want to remove this bounding box",
+      deleteBoundingBox
+    );
+  };
+
   const handleSave = function () {
+    console.log(list);
     onSave(imageId, list);
   };
 
@@ -112,6 +122,33 @@ const Canvas = function ({
     setList(savedList);
   }, [imageId, savedList?.length]);
 
+  const openInstructions = function () {
+    Swal.fire({
+      title: "Instructions",
+      // text: <h2>HELLO WORLD</h2>,
+      html: `
+        <ul className="list-disc">
+          <li>Click and drag to create bounding boxes.</li>
+          <li>
+            Boxes can be resized by selecting them and transforming accordingly.
+          </li>
+          <li>
+            Boxes can be deleted by selecting them and clicking delete button on
+            top bar
+          </li>
+          <li>
+            Please do not move to next slide without saving your changes
+            otherwise your changes will not be saved.
+          </li>
+          <li>
+            Click on submit button to download json file containing co-ordinates
+            of bounding boxes.
+          </li>
+        </ul>
+      `,
+    });
+  };
+
   return (
     <div>
       <div
@@ -119,7 +156,14 @@ const Canvas = function ({
        "
       >
         <PrimaryBtn
-          onClick={deleteBoundingBox}
+          onClick={openInstructions}
+          styles="text-blue-300 border-blue-300"
+        >
+          Read Instructions
+        </PrimaryBtn>
+
+        <PrimaryBtn
+          onClick={deletePrompt}
           styles="text-red-400 border-red-400"
           disabled={list?.length === 0 || !selectedShape}
           title="Delete"
